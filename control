@@ -1,0 +1,9 @@
+Package: xyz.henryli17.pauseonmute
+Name: PauseOnMute
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: Automatically pause music when you turn you mute your volume.
+Maintainer: Henry Li
+Author: Henry Li
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000), preferenceloader (>= 2.2.3)

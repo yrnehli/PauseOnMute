@@ -1,6 +1,6 @@
 #import "Tweak.h"
 
-static NSString *plistPath = @"/var/mobile/Library/Preferences/xyz.henryli17.pauseonmutepreferences.plist";
+static NSString *plistPath = @"/var/mobile/Library/Preferences/xyz.henryli17.pauseonmute.prefs.plist";
 
 %group PauseOnMute
 	%hook SBVolumeControl
@@ -28,8 +28,9 @@ static NSString *plistPath = @"/var/mobile/Library/Preferences/xyz.henryli17.pau
 
 %ctor {
 	NSMutableDictionary *plistDict = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+	NSFileManager *fileManager = [NSFileManager defaultManager];
 
-	if ([[plistDict objectForKey:@"enabled"] boolValue]) {
+	if ([[plistDict objectForKey:@"enabled"] boolValue] || ![fileManager fileExistsAtPath:plistPath]) {
 		%init(PauseOnMute);
 		
 		if ([[plistDict objectForKey:@"resumeOnUnmute"] boolValue]) {

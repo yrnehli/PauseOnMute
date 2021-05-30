@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>PauseOnMutePreferences</string>
 	<key>CFBundleIdentifier</key>
-	<string>xyz.henryli17.pauseonmutepreferences</string>
+	<string>xyz.henryli17.pauseonmute.prefs</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>

@@ -4,7 +4,7 @@
 - (void)increaseVolume {
 	%orig;
 
-	if([self _effectiveVolume] > 0 && [[%c(SBMediaController) sharedInstance] isPaused]) {
+	if([self _effectiveVolume] < 0.1 && [[%c(SBMediaController) sharedInstance] isPaused]) {
 		[[%c(SBMediaController) sharedInstance] playForEventSource: 0];
 	}
 }

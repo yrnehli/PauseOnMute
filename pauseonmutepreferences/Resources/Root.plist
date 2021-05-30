@@ -30,7 +30,7 @@
 			<key>defaults</key>
 			<string>xyz.henryli17.pauseonmutepreferences</string>
 			<key>key</key>
-			<string>resumePlaybackOnUnmute</string>
+			<string>resumeOnUnmute</string>
 			<key>label</key>
 			<string>Resume Playback On Unmute</string>
 		</dict>

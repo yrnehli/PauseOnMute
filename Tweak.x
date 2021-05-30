@@ -32,7 +32,7 @@ static NSString *plistPath = @"/var/mobile/Library/Preferences/xyz.henryli17.pau
 	if ([[plistDict objectForKey:@"enabled"] boolValue]) {
 		%init(PauseOnMute);
 		
-		if ([[plistDict objectForKey:@"resumePlaybackOnUnmute"] boolValue]) {
+		if ([[plistDict objectForKey:@"resumeOnUnmute"] boolValue]) {
 			%init(ResumeOnUnmute);
 		}
 	};

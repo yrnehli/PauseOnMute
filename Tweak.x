@@ -35,5 +35,5 @@ static BOOL resumeOnUnmute;
 	if ([[plistDict objectForKey:@"enabled"] boolValue] || ![fileManager fileExistsAtPath:plistPath]) {
 		%init(Tweak);
 		resumeOnUnmute = [[plistDict objectForKey:@"resumeOnUnmute"] boolValue];
-	};
+	}
 }

@@ -5,6 +5,7 @@
 - (BOOL)pauseForEventSource: (long long)arg1;
 + (id)sharedInstance;
 - (BOOL)isPaused;
+- (BOOL)isPlaying;
 @end
 
 @interface SBVolumeControl

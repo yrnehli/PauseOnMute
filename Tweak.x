@@ -1,25 +1,27 @@
 #import "Tweak.h"
 
 static NSString *plistPath = @"/var/mobile/Library/Preferences/xyz.henryli17.pauseonmute.prefs.plist";
+static BOOL resumeOnUnmute;
 
-%group PauseOnMute
+%group Tweak
 	%hook SBVolumeControl
-	- (void)decreaseVolume {
+	- (void)_effectiveVolumeChanged:(id)arg1 {
+		float volumeBeforeChange = [self _effectiveVolume];
 		%orig;
+		float volumeAfterChange = [self _effectiveVolume];
 
-		if ([self _effectiveVolume] < 0.1 && ![[%c(SBMediaController) sharedInstance] isPaused]) {
+		if (
+			volumeBeforeChange > volumeAfterChange &&
+			volumeAfterChange == 0 &&
+			[[%c(SBMediaController) sharedInstance] isPlaying]
+		) {
 			[[%c(SBMediaController) sharedInstance] pauseForEventSource: 0];
-		}
-	}
-	%end
-%end
-
-%group ResumeOnUnmute
-	%hook SBVolumeControl
-	- (void)increaseVolume {
-		%orig;
-
-		if([self _effectiveVolume] < 0.1 && [[%c(SBMediaController) sharedInstance] isPaused]) {
+		} else if (
+			resumeOnUnmute &&
+			volumeAfterChange > volumeBeforeChange &&
+			volumeBeforeChange == 0 &&
+			[[%c(SBMediaController) sharedInstance] isPaused]
+		) {
 			[[%c(SBMediaController) sharedInstance] playForEventSource: 0];
 		}
 	}
@@ -31,10 +33,7 @@ static NSString *plistPath = @"/var/mobile/Library/Preferences/xyz.henryli17.pau
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 
 	if ([[plistDict objectForKey:@"enabled"] boolValue] || ![fileManager fileExistsAtPath:plistPath]) {
-		%init(PauseOnMute);
-		
-		if ([[plistDict objectForKey:@"resumeOnUnmute"] boolValue]) {
-			%init(ResumeOnUnmute);
-		}
+		%init(Tweak);
+		resumeOnUnmute = [[plistDict objectForKey:@"resumeOnUnmute"] boolValue];
 	};
 }
